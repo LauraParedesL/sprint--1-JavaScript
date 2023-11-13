@@ -16,23 +16,34 @@
             <h1 class="text-xl flex  font-sans md:hover:text-inherit font-bold md:text-5xl text-neutral-50 md:text-left md:items-center">MOVIESTACK</h1>
         </div>
         <nav class="items-center flex md:place-content-end  gap-7 font-mono font-bold md:text-2xl text-neutral-50 md:p-2">
-            <a class="text-sm hover:text-black hover:text-3xl md:text-2xl border-solid border-2 p-0.5 px-1 rounded-md hover:bg-white" href="#">HOME</a>
-            <a class="text-sm hover:text-black hover:text-3xl md:text-2xl border-solid border-2 p-0.5 px-1 rounded-md hover:bg-white" href="./movies.html">MOVIES</a>
+            <a class="text-sm hover:text-black hover:text-3xl md:text-2xl border-solid border-2 p-0.5 px-1 rounded-md hover:bg-white" href="./index.html">HOME</a>
+            <a class="text-sm hover:text-black hover:text-3xl md:text-2xl border-solid border-2 p-0.5 px-1 rounded-md hover:bg-white" href="#">MOVIES</a>
             <a class="text-sm hover:text-black hover:text-3xl md:text-2xl border-solid border-2 p-0.5 px-1 rounded-md hover:bg-white"href="#">FAVS</a>
         </nav>
     </header>
     <main class="grow flex flex-col bg-amber-100	">
         <div> 
-            <img class="w-full h-auto" src="./Modern Movie Trailer Youtube Thumbnail.png" alt="banner-movies">
+            <img class="w-full h-auto" src="./images/Modern Movie Trailer Youtube Thumbnail.png" alt="banner-movies">
+        </div>
+        <div class="flex place-content-center">
+                <form action="#">
+                    <select class="flex w-32 m-3 rounded-md p-1" name="genre" id="contenedor-generos">
+                       
+                    </select>
+                </form>
+                <input id="input-busqueda" class="flex w-32 m-3 rounded-md p-1" type="text" placeholder="Search...">
         </div>
         <section id="cards" class="flex flex-wrap mx-34 m-4  gap-6 place-content-center">
     
+
+
+            
         </section>
     </main>
     <footer class="flex place-content-center bg-amber-500 h-20 border-b items-center">
         <p class=" font-mono font-bold text-2xl text-white">Laura Paredes-Cohort 52</p>
     </footer>
-    <script src="./data.js"></script>
-    <script src="./movies.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/movies.js"></script>
 </body>
 </html>
