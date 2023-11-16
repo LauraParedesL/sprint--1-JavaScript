@@ -1,5 +1,27 @@
 import { introducirCards, crearCards, crearBuscarXGeneros, imprimirTemplate, filteringByTitle, filtrarPorGenero } from "./functions.js"
 
+
+const url="https://moviestack.onrender.com/api/movies"
+const apiKey="0ff70d54-dc0b-4262-9c3d-776cb0f34dbd"
+
+const options = {
+    headers: {
+        "x-api-key" : apiKey
+    }
+}
+let movies=[]
+fetch(url, options)
+.then(response => response.json() )
+.then(data =>{
+     movies = data.movies
+    introducirCards(movies, contenedor)
+} )
+.catch( e => {console.log ( e ) } )
+
+
+
+
+
 const contenedor=document.getElementById("cards")
 
 
@@ -7,7 +29,7 @@ const contenedor=document.getElementById("cards")
 let section=document.querySelector("section")
 
 
-introducirCards(movies, contenedor)
+
 
 
 //filtros
