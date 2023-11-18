@@ -1,67 +1,73 @@
-import { introducirCards, crearCards, crearBuscarXGeneros, imprimirTemplate, filteringByTitle, filtrarPorGenero } from "./functions.js"
+import { introducirCards, crearCards, crearBuscarXGeneros, imprimirTemplate, filteringByTitle, filtrarPorGenero, } from "./functions.js"
 
 
-const url="https://moviestack.onrender.com/api/movies"
-const apiKey="0ff70d54-dc0b-4262-9c3d-776cb0f34dbd"
+const url = "https://moviestack.onrender.com/api/movies"
+const apiKey = "0ff70d54-dc0b-4262-9c3d-776cb0f34dbd"
 
 const options = {
     headers: {
-        "x-api-key" : apiKey
+        "x-api-key": apiKey
     }
 }
-let movies=[]
+let movies = []
 fetch(url, options)
-.then(response => response.json() )
-.then(data =>{
-     movies = data.movies
-    introducirCards(movies, contenedor)
-} )
-.catch( e => {console.log ( e ) } )
+    .then(response => response.json())
+    .then(data => {
+        movies = data.movies
+
+        const generosSinFiltrar = movies.map(movie => movie.genres).flat()
+        const generosSet = [...new Set(generosSinFiltrar)]
+
+        const genres = Array.from(generosSet)
+        genres.unshift("Genres")
+        console.log(movies)
+        imprimirTemplate(genres, contenedorGeneros, crearBuscarXGeneros)
+        introducirCards(movies, contenedor)
+
+    })
+    .catch(e => { console.log(e) })
+
+const contenedor = document.getElementById("cards")
+contenedor.addEventListener("click", (event) => {
+    const dataFav = event.target.dataset.fav
+    const idMovies = event.target.dataset.id
+    let favoritas = JSON.parse(localStorage.getItem("favoritas")) || []
+
+    if (dataFav == "fav") {
+        if (favoritas.includes(idMovies)) {
+            favoritas.splice(favoritas.indexOf (idMovies),1)
+            console.log("Soy tu If")
+        }
+        else {
+            favoritas.push(idMovies)
+            console.log("soy tu else")
+        }
+
+        localStorage.setItem("favoritas" , JSON.stringify(favoritas))
+    }
+
+})
 
 
-
-
-
-const contenedor=document.getElementById("cards")
-
-
-
-let section=document.querySelector("section")
-
-
-
-
+//poner evento al contenedor para detectar el click del usuario
 
 //filtros
 
-const inputBusqueda=document.getElementById("input-busqueda")
-const contenedorGeneros=document.getElementById("contenedor-generos")
+const inputBusqueda = document.getElementById("input-busqueda")
+const contenedorGeneros = document.getElementById("contenedor-generos")
 
-const generosSinFiltrar = movies.map(movie => movie.genres).flat()
-const generosSet= [...new Set(generosSinFiltrar)]
+inputBusqueda.addEventListener("keyup", busqueda)
+contenedorGeneros.addEventListener("input", busqueda)
 
-const genres = Array.from(generosSet)
-genres.unshift("Genres")
-
-//genres.add("Genres")
-
-
-
-imprimirTemplate(genres, contenedorGeneros , crearBuscarXGeneros)
-
-inputBusqueda.addEventListener("keyup" , () => {
-    const filtroGeneros=contenedorGeneros.value
-    const filtradoPorGenero= filtrarPorGenero(movies, filtroGeneros)
-    const filtradoPorNombre= filteringByTitle(filtradoPorGenero, inputBusqueda.value)
+function busqueda() {
+    const filtroGeneros = contenedorGeneros.value
+    const filtradoPorGenero = filtrarPorGenero(movies, filtroGeneros)
+    const filtradoPorNombre = filteringByTitle(filtradoPorGenero, inputBusqueda.value)
     imprimirTemplate(filtradoPorNombre, contenedor, crearCards)
-})
 
-contenedorGeneros.addEventListener("input",(e)=>{
-    const filtroGeneros=contenedorGeneros.value
-    const filtradoPorGenero= filtrarPorGenero(movies, filtroGeneros)
-    const filtradoPorNombre= filteringByTitle(filtradoPorGenero, inputBusqueda.value)
-    imprimirTemplate(filtradoPorNombre, contenedor, crearCards)
-})
+}
+
+
 /*
 function filtrarPorGenero(listaMovies , genre){
     const filtrado= listaMovies.filter(movie => movie.genres.includes(genre))

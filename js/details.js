@@ -62,6 +62,7 @@ fetch(url, options)
                     </div> 
                 </article>`
     }
+    
 } )
 .catch( e => {console.log ( e ) } )
 
