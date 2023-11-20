@@ -1,4 +1,4 @@
-import { introducirCards, crearCards } from "./functions.js";
+import { introducirCards, crearCards, esFavorito } from "./functions.js";
 
 const url = "https://moviestack.onrender.com/api/movies"
 const apiKey = "0ff70d54-dc0b-4262-9c3d-776cb0f34dbd"
@@ -41,7 +41,7 @@ fetch(url, options)
         
                 localStorage.setItem("favoritas" , JSON.stringify(favoritas))
             }
-        
+            
         })
     })
     .catch(e => { console.log(e) })
